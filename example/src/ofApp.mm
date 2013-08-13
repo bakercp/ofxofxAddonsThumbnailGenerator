@@ -72,10 +72,10 @@ void ofApp::setup(){
     frameW  = 270;
     frameH  = 70;
     nFrames = 0;
-    maxFrames = 48;
+    maxFrames = 24;
     bIsRecording = false;
 
-    ofSetFrameRate(15);
+    ofSetFrameRate(12);
     gifEncoder.setup(frameW, frameH, 1.0f/ofGetFrameRate(), 256);
     ofAddListener(ofxGifEncoder::OFX_GIF_SAVE_FINISHED, this, &ofApp::onGifSaved);
 }
@@ -151,6 +151,7 @@ void ofApp::draw(){
 void ofApp::onGifSaved(string &fileName) {
     cout << "gif saved as " << fileName << endl;
     bIsRecording = false;
+    gifEncoder.reset();
     nFrames = 0;
     ofSystem("open -a Safari " + ofToDataPath("ofxaddons_thumbnail.png",true));
 }
