@@ -8,3 +8,5 @@ Yeah, that's right.
 You can use this addon to make a quick animated png (actually an animated .gif) for use on http://ofxaddons.com.
 
 Sorry, it's only OSX compatible at the moment.
+
+Requires https://github.com/jesusgollonet/ofxGifEncoder.
