@@ -28,6 +28,12 @@ class ofApp : public ofBaseApp{
         ofxGifEncoder gifEncoder;
 
         ofTrueTypeFont font;
+	
+		// fix retina
+		bool retina;
+		int frameRetinaW, frameRetinaH;
+		ofImage scale;
+
 };
 
 

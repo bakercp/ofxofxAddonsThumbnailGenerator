@@ -65,12 +65,21 @@ unsigned char * pixelsBelowWindow(int x, int y, int w, int h)
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    font.loadFont(OF_TTF_SANS,14);
-
+    font.loadFont(OF_TTF_SANS, 14);
+	
     yourAddonName = "ofxYourAddon";
-
-    frameW  = 270;
-    frameH  = 70;
+	
+    frameRetinaW = frameW  = 270;
+    frameRetinaH = frameH  = 70;
+	
+	// set here if retina is enabled
+	retina = false; //= isRetina();
+	
+	if (retina){
+		frameRetinaW  = frameW*2;
+		frameRetinaH  = frameH*2;
+	}
+	
     nFrames = 0;
     maxFrames = 24;
     bIsRecording = false;
@@ -87,17 +96,25 @@ void ofApp::update(){
                                              ofGetWindowPositionY(),
                                              frameW,
                                              frameH);
-
-    for (int i = 0; i < frameW * frameH; i++) {
+	
+    for (int i = 0; i < frameRetinaW * frameRetinaH; i++) {
 		unsigned char r1 = data[i*4]; // mem A
 		data[i*4]   = data[i*4+1];
 		data[i*4+1] = data[i*4+2];
 		data[i*4+2] = data[i*4+3];
 		data[i*4+3] = r1;
 	}
+	
+	if (retina){
+		scale.setFromPixels(data, frameRetinaW, frameRetinaH, OF_IMAGE_COLOR_ALPHA);
+		scale.resize(frameW, frameH);
+		screen=scale;
+	}else{
+		screen.setFromPixels(data, frameW, frameH, OF_IMAGE_COLOR_ALPHA);
+	}
+	
     
-    screen.setFromPixels(data, frameW, frameH, OF_IMAGE_COLOR_ALPHA);
-
+	
     if(bIsRecording) {
         screen.setImageType(OF_IMAGE_COLOR);
         gifEncoder.addFrame(screen.getPixels(), frameW, frameH, 24, .1);
