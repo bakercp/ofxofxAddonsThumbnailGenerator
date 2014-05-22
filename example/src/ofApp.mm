@@ -1,9 +1,37 @@
-#include "ofApp.h"
+// =============================================================================
+//
+// Copyright (c) 2013-2014 Christopher Baker <http://christopherbaker.net>
+// Portions Copyright (c) 2014 Jordi Puig <http://www.wasawi.com/>
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
+// =============================================================================
 
+
+#include "ofApp.h"
+#include "ofAppGLFWWindow.h"
 #include <Cocoa/Cocoa.h>
 #include <AppKit/NSOpenGL.h>
 
+
 CGImageRef capturedImage;
+
 
 unsigned char * pixelsBelowWindow(int x, int y, int w, int h)
 {
@@ -41,10 +69,14 @@ unsigned char * pixelsBelowWindow(int x, int y, int w, int h)
 
 
     // Get a composite image of all the windows beneath your window
-    capturedImage = CGWindowListCreateImage( windowRect, kCGWindowListOptionOnScreenBelowWindow, windowID, kCGWindowImageDefault );
+    capturedImage = CGWindowListCreateImage(windowRect,
+                                            kCGWindowListOptionOnScreenBelowWindow,
+                                            windowID,
+                                            kCGWindowImageDefault);
 
     // The rest is as in the previous example...
-    if(CGImageGetWidth(capturedImage) <= 1) {
+    if(CGImageGetWidth(capturedImage) <= 1)
+    {
         CGImageRelease(capturedImage);
         //return nil;
 		return NULL;
@@ -63,75 +95,108 @@ unsigned char * pixelsBelowWindow(int x, int y, int w, int h)
 }
 
 
-//--------------------------------------------------------------
-void ofApp::setup(){
-    font.loadFont(OF_TTF_SANS,14);
-
+void ofApp::setup()
+{
+    font.loadFont(OF_TTF_SANS, 14);
+	
     yourAddonName = "ofxYourAddon";
-
+	
     frameW  = 270;
     frameH  = 70;
+
+    pixelScreenCoordScale = ((ofAppGLFWWindow*)ofGetWindowPtr())->getPixelScreenCoordScale();
+
     nFrames = 0;
     maxFrames = 24;
-    bIsRecording = false;
+    isRecording = false;
 
     ofSetFrameRate(12);
     gifEncoder.setup(frameW, frameH, 1.0f/ofGetFrameRate(), 256);
+
     ofAddListener(ofxGifEncoder::OFX_GIF_SAVE_FINISHED, this, &ofApp::onGifSaved);
 }
 
-//--------------------------------------------------------------
-void ofApp::update(){ 
 
+void ofApp::update()
+{
     unsigned char * data = pixelsBelowWindow(ofGetWindowPositionX(),
                                              ofGetWindowPositionY(),
-                                             frameW,
-                                             frameH);
+                                             frameW * pixelScreenCoordScale,
+                                             frameH * pixelScreenCoordScale);
+	
 
-    for (int i = 0; i < frameW * frameH; i++) {
+    for (int i = 0; i < (frameW * pixelScreenCoordScale) * (frameH * pixelScreenCoordScale); ++i)
+    {
 		unsigned char r1 = data[i*4]; // mem A
 		data[i*4]   = data[i*4+1];
 		data[i*4+1] = data[i*4+2];
 		data[i*4+2] = data[i*4+3];
 		data[i*4+3] = r1;
 	}
-    
-    screen.setFromPixels(data, frameW, frameH, OF_IMAGE_COLOR_ALPHA);
 
-    if(bIsRecording) {
+    if (pixelScreenCoordScale > 1)
+    {
+        screen.setFromPixels(data,
+                             frameW * pixelScreenCoordScale,
+                             frameH * pixelScreenCoordScale,
+                             OF_IMAGE_COLOR_ALPHA);
+
+		screen.resize(frameW, frameH);
+	}
+    else
+    {
+		screen.setFromPixels(data, frameW, frameH, OF_IMAGE_COLOR_ALPHA);
+	}
+	
+    if(isRecording)
+    {
         screen.setImageType(OF_IMAGE_COLOR);
         gifEncoder.addFrame(screen.getPixels(), frameW, frameH, 24, .1);
         nFrames++;
-        if(nFrames > maxFrames) {
-            cout <<"Saving ..." << endl;
+        if(nFrames > maxFrames)
+        {
+            ofLogNotice("ofApp::update") << "Saving ...";
             gifEncoder.save("ofxaddons_thumbnail.png");
-            bIsRecording = false;
+            isRecording = false;
         }
     }
 }
 
-//--------------------------------------------------------------
-void ofApp::draw(){
+
+void ofApp::draw()
+{
     ofSetColor(255);
     screen.draw(0,0);
 
-    ofRectangle infoRect(0,ofGetHeight()-24, font.getStringBoundingBox(yourAddonName, 0,0).width + 20, 24);
+    ofRectangle infoRect(0,
+                         ofGetHeight() - 24,
+                         font.getStringBoundingBox(yourAddonName, 0,0).width + 20,
+                         24);
 
     ofSetColor(230, 232, 234);
     ofRect(infoRect);
 
-    if(bIsRecording) {
+    if(isRecording)
+    {
         ofEnableAlphaBlending();
         ofSetColor(255,0,0,80);
-        ofRect(infoRect.x,infoRect.y, (float)nFrames / maxFrames * infoRect.width, infoRect.height);
+        ofRect(infoRect.x,
+               infoRect.y,
+               (float)nFrames / maxFrames * infoRect.width,
+               infoRect.height);
+
         ofDisableAlphaBlending();
-    } else {
-        if(ofRectangle(0,0,ofGetWidth(), ofGetHeight()).inside(ofGetMouseX(), ofGetMouseY())) {
+    }
+    else
+    {
+        if(ofRectangle(0,0,ofGetWidth(), ofGetHeight()).inside(ofGetMouseX(), ofGetMouseY()))
+        {
             ofDrawBitmapStringHighlight("Press spacebar to record ...", 10,16,ofColor::magenta);
         }
     }
 
-    if(infoRect.inside(ofGetMouseX(), ofGetMouseY())) {
+    if(infoRect.inside(ofGetMouseX(), ofGetMouseY()))
+    {
         ofSetColor(ofColor::magenta);
 
         ofRectangle highlight(4,ofGetHeight()-22, font.getStringBoundingBox(yourAddonName, 0,0).width + 14, 20);
@@ -139,32 +204,35 @@ void ofApp::draw(){
 
         ofSetColor(255);
         font.drawString(yourAddonName, 10, ofGetHeight()-5);
-    } else {
+    }
+    else
+    {
         ofSetColor(68);
         font.drawString(yourAddonName, 10, ofGetHeight()-5);
     }
-
-
 }
 
-//--------------------------------------------------------------
-void ofApp::onGifSaved(string &fileName) {
-    cout << "gif saved as " << fileName << endl;
-    bIsRecording = false;
+
+void ofApp::onGifSaved(string &fileName)
+{
+    ofLogNotice("ofApp::onGifSaved") << "gif saved as " << fileName;
+    isRecording = false;
     gifEncoder.reset();
     nFrames = 0;
-    ofSystem("open -a Safari " + ofToDataPath("ofxaddons_thumbnail.png",true));
+    ofSystem("open -a Safari " + ofToDataPath("ofxaddons_thumbnail.png", true));
 }
 
-//--------------------------------------------------------------
-void ofApp::keyPressed(int key){
-    if(key == ' ') {
-        if(!bIsRecording) bIsRecording = true;
+
+void ofApp::keyPressed(int key)
+{
+    if(key == ' ')
+    {
+        if(!isRecording) isRecording = true;
     }
 }
 
-//--------------------------------------------------------------
-void ofApp::exit(){ 
+
+void ofApp::exit()
+{
     gifEncoder.exit();
 }
-

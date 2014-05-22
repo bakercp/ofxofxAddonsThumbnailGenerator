@@ -1,1 +1,2 @@
 ofxGifEncoder
+ofxofxAddonsThumbnailGenerator

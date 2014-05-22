@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B194CA7A-1A7A-4650-98EA-02DBB8A66133</string>
+	<key>IDESourceControlProjectName</key>
+	<string>example</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D6C8885E-D460-4839-AC98-8FAFE24D6E0C</key>
+		<string>ssh://github.com/bakercp/openFrameworks.git</string>
+		<key>E189EE22-3D7D-4596-A1F9-D10C2C1C7469</key>
+		<string>ssh://github.com/bakercp/ofxofxAddonsThumbnailGenerator.git</string>
+		<key>EB611711-BF17-49FD-86C8-743F8C14D3E5</key>
+		<string>ssh://github.com/bakercp/ofxGifEncoder.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>addons/ofxofxAddonsThumbnailGenerator/example/example.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D6C8885E-D460-4839-AC98-8FAFE24D6E0C</key>
+		<string>../../../../..</string>
+		<key>E189EE22-3D7D-4596-A1F9-D10C2C1C7469</key>
+		<string>../../..</string>
+		<key>EB611711-BF17-49FD-86C8-743F8C14D3E5</key>
+		<string>../../../../ofxGifEncoder</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/bakercp/ofxofxAddonsThumbnailGenerator.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D6C8885E-D460-4839-AC98-8FAFE24D6E0C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EB611711-BF17-49FD-86C8-743F8C14D3E5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxGifEncoder</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E189EE22-3D7D-4596-A1F9-D10C2C1C7469</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxofxAddonsThumbnailGenerator</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D6C8885E-D460-4839-AC98-8FAFE24D6E0C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>openFrameworks</string>
+		</dict>
+	</array>
+</dict>
+</plist>
