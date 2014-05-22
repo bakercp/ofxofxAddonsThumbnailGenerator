@@ -5,27 +5,27 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>0C642628-C0B8-4AAC-90F4-69FDC93A62D3</string>
+	<string>B194CA7A-1A7A-4650-98EA-02DBB8A66133</string>
 	<key>IDESourceControlProjectName</key>
 	<string>example</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>06E2F21F-2589-422D-8066-931F67B38774</key>
-		<string>ssh://github.com/bakercp/ofxofxAddonsThumbnailGenerator.git</string>
-		<key>51FDD3EC-6CF1-4879-B556-9CD2D2C2F460</key>
+		<key>D6C8885E-D460-4839-AC98-8FAFE24D6E0C</key>
 		<string>ssh://github.com/bakercp/openFrameworks.git</string>
-		<key>C472E90A-DFAD-4EDF-BC44-18D95DB8C7DF</key>
+		<key>E189EE22-3D7D-4596-A1F9-D10C2C1C7469</key>
+		<string>ssh://github.com/bakercp/ofxofxAddonsThumbnailGenerator.git</string>
+		<key>EB611711-BF17-49FD-86C8-743F8C14D3E5</key>
 		<string>ssh://github.com/bakercp/ofxGifEncoder.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>addons/ofxofxAddonsThumbnailGenerator/example/example.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>06E2F21F-2589-422D-8066-931F67B38774</key>
-		<string>../../..</string>
-		<key>51FDD3EC-6CF1-4879-B556-9CD2D2C2F460</key>
+		<key>D6C8885E-D460-4839-AC98-8FAFE24D6E0C</key>
 		<string>../../../../..</string>
-		<key>C472E90A-DFAD-4EDF-BC44-18D95DB8C7DF</key>
+		<key>E189EE22-3D7D-4596-A1F9-D10C2C1C7469</key>
+		<string>../../..</string>
+		<key>EB611711-BF17-49FD-86C8-743F8C14D3E5</key>
 		<string>../../../../ofxGifEncoder</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -33,14 +33,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>51FDD3EC-6CF1-4879-B556-9CD2D2C2F460</string>
+	<string>D6C8885E-D460-4839-AC98-8FAFE24D6E0C</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C472E90A-DFAD-4EDF-BC44-18D95DB8C7DF</string>
+			<string>EB611711-BF17-49FD-86C8-743F8C14D3E5</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxGifEncoder</string>
 		</dict>
@@ -48,7 +48,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>06E2F21F-2589-422D-8066-931F67B38774</string>
+			<string>E189EE22-3D7D-4596-A1F9-D10C2C1C7469</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxofxAddonsThumbnailGenerator</string>
 		</dict>
@@ -56,7 +56,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>51FDD3EC-6CF1-4879-B556-9CD2D2C2F460</string>
+			<string>D6C8885E-D460-4839-AC98-8FAFE24D6E0C</string>
 			<key>IDESourceControlWCCName</key>
 			<string>openFrameworks</string>
 		</dict>
