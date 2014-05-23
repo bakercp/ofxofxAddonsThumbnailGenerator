@@ -104,8 +104,17 @@ void ofApp::setup()
     frameW  = 270;
     frameH  = 70;
 
-    pixelScreenCoordScale = ((ofAppGLFWWindow*)ofGetWindowPtr())->getPixelScreenCoordScale();
+//	Retina Fix
+//	http://forum.openframeworks.cc/t/retina-detection-backingscalefactor/13087/4
+	
+	pixelScreenCoordScale = ((ofAppGLFWWindow*)ofGetWindowPtr())->getPixelScreenCoordScale();
 
+	if (pixelScreenCoordScale > 1){
+		cout <<"We are in retina. Current Pixel Density is "<< pixelScreenCoordScale << endl;
+		ofSetWindowShape(ofGetWidth(), ofGetHeight());
+		font.loadFont(OF_TTF_SANS, 14*pixelScreenCoordScale);
+	}
+	
     nFrames = 0;
     maxFrames = 24;
     isRecording = false;
@@ -119,10 +128,10 @@ void ofApp::setup()
 
 void ofApp::update()
 {
-    unsigned char * data = pixelsBelowWindow(ofGetWindowPositionX(),
-                                             ofGetWindowPositionY(),
-                                             frameW * pixelScreenCoordScale,
-                                             frameH * pixelScreenCoordScale);
+    unsigned char * data = pixelsBelowWindow(ofGetWindowPositionX()/pixelScreenCoordScale,
+                                             ofGetWindowPositionY()/pixelScreenCoordScale,
+                                             frameW,
+                                             frameH);
 	
 
     for (int i = 0; i < (frameW * pixelScreenCoordScale) * (frameH * pixelScreenCoordScale); ++i)
@@ -166,12 +175,12 @@ void ofApp::update()
 void ofApp::draw()
 {
     ofSetColor(255);
-    screen.draw(0,0);
+    screen.draw(0,0,frameW*pixelScreenCoordScale, frameH*pixelScreenCoordScale);
 
     ofRectangle infoRect(0,
-                         ofGetHeight() - 24,
+                         ofGetHeight() - 24*pixelScreenCoordScale,
                          font.getStringBoundingBox(yourAddonName, 0,0).width + 20,
-                         24);
+                         24*pixelScreenCoordScale);
 
     ofSetColor(230, 232, 234);
     ofRect(infoRect);
@@ -199,7 +208,7 @@ void ofApp::draw()
     {
         ofSetColor(ofColor::magenta);
 
-        ofRectangle highlight(4,ofGetHeight()-22, font.getStringBoundingBox(yourAddonName, 0,0).width + 14, 20);
+        ofRectangle highlight(4,ofGetHeight()-22*pixelScreenCoordScale, font.getStringBoundingBox(yourAddonName, 0,0).width + 14, 20*pixelScreenCoordScale);
         ofRect(highlight);
 
         ofSetColor(255);
