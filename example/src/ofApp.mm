@@ -109,6 +109,10 @@ void ofApp::setup()
     // in the application's openFrameworks-Info.plist file.
 	pixelScreenCoordScale = ((ofAppGLFWWindow*)ofGetWindowPtr())->getPixelScreenCoordScale();
 
+    // This is a hack for retina displays.
+    // It has no effect on non-retina displays.
+    ofSetWindowShape(ofGetWidth(), ofGetHeight());
+
     font.loadFont(OF_TTF_SANS, 14 * pixelScreenCoordScale);
 
     nFrames = 0;
