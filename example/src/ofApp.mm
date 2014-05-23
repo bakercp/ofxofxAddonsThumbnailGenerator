@@ -97,30 +97,25 @@ unsigned char * pixelsBelowWindow(int x, int y, int w, int h)
 
 void ofApp::setup()
 {
-    font.loadFont(OF_TTF_SANS, 14);
-	
+    ofSetFrameRate(12);
+
     yourAddonName = "ofxYourAddon";
 	
     frameW  = 270;
     frameH  = 70;
 
-//	Retina Fix
-//	http://forum.openframeworks.cc/t/retina-detection-backingscalefactor/13087/4
-	
+    // We must record the pixel scale to account for retina and other HDPI displays.
+    // For this call to work, we must place the <key>NSHighResolutionCapable</key>
+    // in the application's openFrameworks-Info.plist file.
 	pixelScreenCoordScale = ((ofAppGLFWWindow*)ofGetWindowPtr())->getPixelScreenCoordScale();
 
-	if (pixelScreenCoordScale > 1){
-		cout <<"We are in retina. Current Pixel Density is "<< pixelScreenCoordScale << endl;
-		ofSetWindowShape(ofGetWidth(), ofGetHeight());
-		font.loadFont(OF_TTF_SANS, 14*pixelScreenCoordScale);
-	}
-	
+    font.loadFont(OF_TTF_SANS, 14 * pixelScreenCoordScale);
+
     nFrames = 0;
     maxFrames = 24;
     isRecording = false;
 
-    ofSetFrameRate(12);
-    gifEncoder.setup(frameW, frameH, 1.0f/ofGetFrameRate(), 256);
+    gifEncoder.setup(frameW, frameH, 1.0f / ofGetFrameRate(), 256);
 
     ofAddListener(ofxGifEncoder::OFX_GIF_SAVE_FINISHED, this, &ofApp::onGifSaved);
 }
